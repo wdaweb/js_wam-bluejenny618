@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans&display=swap" rel="stylesheet">    <title>Document</title>
+    <link rel="stylesheet" href="./作業打地鼠/css/style.css">
+</head>
+<body>
+  <div class="bg1" id="sunbg">
+    <div class="bg" id="rainbg"></div>
+  </div>
+    <div class="time">
+      <div class="font"><span id="text-countdown">10</span> sec</div> 
+    </div>
+    <div id="game" class="cloud_box">
+      <div>
+        <div class="holes" id="hole7"></div>
+        <div class="holes" id="hole8"></div>
+        <div class="holes" id="hole9"></div>
+      </div>
+      <div>
+        <div class="holes" id="hole4"></div>
+        <div class="holes" id="hole5"></div>
+        <div class="holes" id="hole6"></div>
+      </div>
+      <div>
+        <div class="holes" id="hole1"></div>
+        <div class="holes" id="hole2"></div>
+        <div class="holes" id="hole3"></div>
+      </div>
+    </div>
+  
+    <div>
+    <input class="btn-start1" type="button" id="btn-start">
+    </div>
+   
+    <div class="font-s"><span id="text-score">0</span> Point</div>
+    
+    
+    <div class="font-max">
+    <span id="highscore-player">-</span>
+    <span id="highscore-score">-</span>
+    </div>
+
+    <div class="addpiont"></div>
+    <script>
+      window.module = {};
+    </script>
+    <script src="./作業打地鼠/confetti.js"></script>
+    <script>
+      window.confetti = module.exports;
+    </script> 
+ <script>
+    const btnStart = document.getElementById('btn-start')
+    const holes = document.getElementsByClassName('holes')
+    const textScore = document.getElementById('text-score')
+    const textHighscorePlayer = document.getElementById('highscore-player')
+    const textHighscore = document.getElementById('highscore-score')
+    const textCountdown = document.getElementById('text-countdown')
+    const rainy = document.getElementById('rainbg')
+
+    const audio = new Audio()
+    audio.src = './rihai.mp3'
+
+    let show = 1
+    let score = 0
+    let timer = 0
+    let countdown = 10
+    let highscore = { name:'', score: 0 }
+    const highStorage = JSON.parse(localStorage.getItem('wam'))
+    if (highStorage !== null) {
+      highscore = highStorage
+      textHighscorePlayer.innerText = highscore.name
+      textHighscore.innerText = highscore.score
+    }
+
+    btnStart.onclick = () => {
+      btnStart.disabled = true
+      score = 0
+      textScore.innerText = score
+      show = 1
+      rainy.style.opacity=show
+      countdown = 10
+      textCountdown.innerText = countdown
+
+      timer = setInterval(game, 1000)
+      game()
+    }
+    const game = () => {
+      for (const hole of holes) {
+        hole.classList.remove('rain')
+        hole.classList.remove('sun')
+        hole.classList.remove('addpoint')
+        hole.classList.remove('rainbow')
+      }
+      let wealth=['rain','addpoint']
+      for(let i=0;i<3;i++) {
+        const random = Math.floor(Math.random()*9)
+        const wealthrand = Math.floor(Math.random()*2)
+        holes[random].classList.add(wealth[wealthrand])
+      }
+      countdown--
+      textCountdown.innerText = countdown
+      if (countdown <= 0) {
+        clearInterval(timer)
+        alert(`恭喜得到 ${score} 分`)
+        btnStart.disabled = false
+        for (const hole of holes) {
+          hole.classList.remove('rain')
+          hole.classList.remove('sun')
+          hole.classList.remove('addpoint')
+          hole.classList.remove('rainbow')
+        }
+
+        if (score > highscore.score) {
+          audio.play()
+          confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 }
+          });
+          highscore.score = score
+          highscore.name = prompt('最高紀錄~請輸入名字')
+          if (highscore.name === null || highscore.name.length === 0) {
+            highscore.name = 'XXX'
+          }
+          textHighscorePlayer.innerText = highscore.name
+          textHighscore.innerText = highscore.score
+          localStorage.setItem('wam', JSON.stringify(highscore))
+        }
+      }
+    }
+
+    for (const hole of holes) {
+      hole.onclick = () => {
+        if (hole.classList.contains('rain')) {
+          hole.classList.replace('rain', 'sun')
+          score++
+          show=show-0.2
+        }else if(hole.classList.contains('addpoint')){
+          hole.classList.replace('addpoint', 'rainbow')
+          score=score+2
+          show=show-0.2
+        }
+        textScore.innerText = score
+        rainy.style.opacity=show
+      }
+    }
+
+      document.onkeydown = (event) => {
+      if (!isNaN(event.key) && event.code.includes('Numpad')) {
+        const target = document.getElementById(`hole${event.key}`)
+        if (target !== null && target.classList.contains('rain')) {
+          target.classList.replace('rain', 'sun')
+          score++
+          show=show-0.2
+        }else if(target !== null && target.classList.contains('addpoint')){
+          target.classList.replace('addpoint', 'rainbow')
+          score=score+2
+          show=show-0.2
+        }
+        textScore.innerText = score
+        rainy.style.opacity=show
+      }
+    }
+    </script>
+</body>
+</html>

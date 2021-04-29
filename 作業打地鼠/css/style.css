@@ -1,0 +1,141 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+html,
+body {
+  height: 100%;
+}
+
+.bg {
+  width: 1000px;
+  height: 1000px;
+  background: url("../images/rain-dd.gif");
+  background-repeat: no-repeat;
+  background-position: center top;
+  transform: translate(0%, 0%);
+  position: relative;
+}
+.bg1 {
+  width: 1000px;
+  height: 1000px;
+  background: url("../images/Background.jpg");
+  background-repeat: no-repeat;
+  background-position: center top;
+  transform: translate(25%, 0%);
+  position: relative;
+}
+
+.holes {
+  width: 120px;
+  height: 120px;
+  background: url("../images/smallbg.png");
+  background-repeat: no-repeat;
+  background-size: 100%, 100%;
+  display: inline-block;
+}
+.cloud_box {
+  transform: translate(-50%, -50%);
+  position: absolute;
+  left: 50%;
+  top: 45%;
+}
+.p1 {
+  transform: translate(50%, -100%);
+  position: absolute;
+  left: 50%;
+  top: 90%;
+}
+.rain {
+  background: url("../images/rain.png"), url("../images/smallbg.png");
+  background-repeat: no-repeat, no-repeat;
+  background-size: 85%, 100%;
+  background-position: center center;
+}
+
+.sun {
+  background: url("../images/sun.png"), url("../images/smallbg.png");
+  background-repeat: no-repeat, no-repeat;
+  background-size: 85%, 100%;
+  background-position: center center;
+}
+
+.addpoint {
+  background: url("../images/addpointrain.png"), url("../images/smallbg.png");
+  background-repeat: no-repeat, no-repeat;
+  background-size: 85%, 100%;
+  background-position: center center;
+}
+
+.rainbow {
+  background: url("../images/rainbow.png"), url("../images/smallbg.png");
+  background-repeat: no-repeat, no-repeat;
+  background-size: 95%, 100%;
+  background-position: center center;
+}
+
+#game {
+  cursor: url("../images/umbrella.png") 50 50, auto;
+}
+
+#game:active {
+  cursor: url("../images/open-unbrella.png") 50 50, auto;
+}
+
+.time {
+  width: 350px;
+  height: 100px;
+  background: url("../images/board-09.png");
+  background-repeat: no-repeat;
+  background-size: 100%, 100%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  left: 50%;
+  top: 8%;
+}
+.font {
+  font-family: "Fredoka One", cursive;
+  font-family: "Balsamiq Sans", cursive;
+  font-size: 25px;
+  color: rgb(255, 255, 255);
+  left: 44%;
+  top: 55%;
+  position: absolute;
+  transform: translate(-15%, -42%);
+}
+
+.font-s {
+  font-family: "Fredoka One", cursive;
+  font-family: "Balsamiq Sans", cursive;
+  font-size: 22px;
+  color: rgb(255, 255, 255);
+  left: 58%;
+  top: 8%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.font-max {
+  font-family: "Fredoka One", cursive;
+  font-family: "Balsamiq Sans", cursive;
+  font-size: 22px;
+  color: rgb(255, 255, 255);
+  left: 42%;
+  top: 8%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.btn-start1 {
+  width: 100px;
+  height: 40px;
+  background: url("../images/start-13.png");
+  background-repeat: no-repeat;
+  background-size: 100%, 100%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  left: 50%;
+  top: 77%;
+  border: 0px none;
+}
